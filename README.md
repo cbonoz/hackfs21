@@ -4,7 +4,7 @@
 
 ## CheckoutFS
 
-Create beautiful checkout pages and menus hosted on IPFS.
+Create instant checkout pages and catalogs hosted on IPFS.
 
 Built for the HackFS 2021 hackathon.
 
