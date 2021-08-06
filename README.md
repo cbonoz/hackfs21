@@ -1,10 +1,11 @@
+<!--
 <p align='center'>
     <img src='./img/logo_sq.png' width=600/>
-</p>
+</p> -->
 
 ## CheckoutFS
 
-Create instant checkout pages and catalogs hosted on IPFS.
+Create instant checkout pages for your business or service hosted on IPFS.
 
 Built for the HackFS 2021 hackathon.
 
