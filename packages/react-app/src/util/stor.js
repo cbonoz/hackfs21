@@ -10,14 +10,14 @@ function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() });
 }
 
-async function storeFiles(files) {
+export async function storeFiles(files) {
   const client = makeStorageClient();
   const cid = await client.put(files);
   console.log("stored files with cid:", cid);
   return cid;
 }
 
-async function retrieve(cid) {
+export async function retrieveFiles(cid) {
   const client = makeStorageClient();
   const res = await client.get(cid);
   console.log(`Got a response! [${res.status}] ${res.statusText}`);

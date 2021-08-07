@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Input, Button, Steps, Layout } from "antd";
 import { FileDropzone } from "./FileDropzone";
+import { storeFiles } from "../util/stor";
+import { getCheckoutUrl } from "../util/checkout";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -15,6 +17,25 @@ function Upload(props) {
   const [info, setInfo] = useState({ userName: "cbono", title: "LiveStream Broadcast from 5/29", eth: 0.01 });
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const updateStep = async offset => {
+    const nextStep = currentStep + offset;
+
+    if (nextStep === LAST_STEP) {
+      if (!files) {
+        alert("Please specify at least one file");
+        return;
+      }
+
+      // https://docs.web3.storage/how-tos/store/#preparing-files-for-upload
+      // TODO: add metadata
+      const cid = await storeFiles(files);
+      const data = { cid, url: getCheckoutUrl(cid) };
+      setResult(data);
+    }
+
+    setCurrentStep(nextStep);
+  };
 
   const getBody = () => {
     switch (currentStep) {
@@ -59,7 +80,7 @@ function Upload(props) {
 
             {result.url && (
               <a href={result.url} target="_blank">
-                Click here to view listing.
+                Click here to view page.
               </a>
             )}
           </div>

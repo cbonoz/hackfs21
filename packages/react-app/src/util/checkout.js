@@ -1,5 +1,7 @@
-export const DEFAULT_NAME = "Checkout Product Gate";
+import faker from "faker";
 
+export const BASE_URL = window.location.hostname;
+export const DEFAULT_NAME = "Checkout Product Gate";
 export const DEFAULT_PRODUCTS = [
   {
     id: 1,
@@ -8,7 +10,7 @@ export const DEFAULT_PRODUCTS = [
     price: "20",
     discounted: "15",
     currency: "$",
-    image: "http://domain.com/images/1.jpg",
+    image: faker.image.fashion(),
   },
   {
     id: 2,
@@ -17,7 +19,7 @@ export const DEFAULT_PRODUCTS = [
     price: "25",
     currency: "$",
     discounted: "15",
-    image: "http://domain.com/images/5.jpg",
+    image: faker.image.fashion(),
   },
   {
     id: 3,
@@ -25,7 +27,7 @@ export const DEFAULT_PRODUCTS = [
     description: "Fashionable trendy heels.",
     currency: "$",
     price: "30",
-    image: "http://domain.com/images/6.jpg",
+    image: faker.image.fashion(),
   },
 ];
 
@@ -39,9 +41,9 @@ export const CONTENT_KEYS = {
   discountCurrencyKey: "currency",
 };
 
-export const loadCheckoutModal = name => {
+export const loadCheckoutModal = ({ title }) => {
   if (!window.unlockProtocol) {
-    alert("Cannot open modal - unlock not initialized");
+    alert("Cannot open modal - unlock not initialized: ");
     return;
   }
 
@@ -58,7 +60,7 @@ export const loadCheckoutModal = name => {
         network: 100, // lock on the xDai chain
       },
       "0x3f587bFA738F98a35D5c9Bd6eB5a71eFD3301459": {
-        name,
+        name: title,
         network: 1,
         // if no name is used, the default from the contract is used
       }, // you can add as many locks as you want.
@@ -76,3 +78,5 @@ export const loadCheckoutModal = name => {
   };
   window.unlockProtocol && window.unlockProtocol.loadCheckoutModal(/* optional configuration*/);
 };
+
+export const getCheckoutUrl = cid => `${BASE_URL}/pages/${cid}`;

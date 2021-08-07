@@ -5,3 +5,14 @@
 .header-logo {
   height: 40px;
 }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.ant-layout-header {
+  background: white !important;
+}

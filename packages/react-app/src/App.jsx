@@ -1,14 +1,14 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
-import { Alert, Button, Col, Menu, Row } from "antd";
+import { Alert, Button, Menu } from "antd";
 import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
-import { INFURA_ID, NETWORK, NETWORKS, TARGET_NETWORK } from "./constants";
+import { Account, Header, ThemeSwitch } from "./components";
+import { INFURA_ID, NETWORK, TARGET_NETWORK } from "./constants";
 import { Transactor } from "./helpers";
 import {
   useBalance,
@@ -26,6 +26,7 @@ import CheckoutPage from "./components/CheckoutPage";
 import { capitalize } from "./util";
 import About from "./components/About";
 import Generate from "./components/Generate";
+import CreateWallet from "./components/CreateWallet";
 
 const { ethers } = require("ethers");
 
@@ -359,59 +360,67 @@ function App(props) {
 
   const ROUTES = ["about", "upload", "access", "wallet", "embed"];
 
+  const showHeader = window.location.pathname.indexOf("pages") === -1;
+
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      <Header />
-      {networkDisplay}
+      {showHeader && (
+        <span>
+          <Header />
+          {networkDisplay}
+        </span>
+      )}
       <BrowserRouter>
-        <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-          {ROUTES.map(r => {
-            const link = `/${r}`;
-            return (
-              <Menu.Item key={link}>
-                <Link
-                  onClick={() => {
-                    setRoute(link);
-                  }}
-                  to={link}
-                >
-                  {capitalize(r)}
-                </Link>
-              </Menu.Item>
-            );
-          })}
+        {showHeader && (
+          <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+            {ROUTES.map(r => {
+              const link = `/${r}`;
+              return (
+                <Menu.Item key={link}>
+                  <Link
+                    onClick={() => {
+                      setRoute(link);
+                    }}
+                    to={link}
+                  >
+                    {capitalize(r)}
+                  </Link>
+                </Menu.Item>
+              );
+            })}
 
-          <Menu.Item key="/">
-            <Link
-              onClick={() => {
-                setRoute("/");
-              }}
-              to="/"
-            ></Link>
-          </Menu.Item>
-        </Menu>
+            <Menu.Item key="/">
+              <Link
+                onClick={() => {
+                  setRoute("/");
+                }}
+                to="/"
+              ></Link>
+            </Menu.Item>
+          </Menu>
+        )}
 
         <Switch>
-          <Route exact path={["/", "about"]}>
-            <About />
+          <Route path={["/pages/:cid"]}>
+            <CheckoutPage cid={match.params.cid} />
           </Route>
-          <Route exact path={["/embed", "/generate"]}>
-            <Generate />
-          </Route>
-          <Route exact path={["/upload"]}>
-            <Upload />
-          </Route>
-          <Route path={["/pages"]}>
-            <CheckoutPage />
-          </Route>
-          <Route path={["/wallet"]}>
-            {/* <CheckoutPage /> */}
-          </Route>
+          <div className="container">
+            <Route exact path={["/", "about"]}>
+              <About />
+            </Route>
+            <Route exact path={["/embed", "/generate"]}>
+              <Generate />
+            </Route>
+            <Route exact path={["/upload"]}>
+              <Upload />
+            </Route>
+            <Route path={["/wallet"]}>
+              <CreateWallet />
+            </Route>
+          </div>
         </Switch>
       </BrowserRouter>
-
-      <ThemeSwitch />
 
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
       <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>

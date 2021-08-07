@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import { createQRUrl } from "../util/qr";
-import { Button } from "react-bootstrap";
 
 function Generate(props) {
   const [cid, setCid] = useState();

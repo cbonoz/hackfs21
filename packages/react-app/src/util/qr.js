@@ -1,10 +1,10 @@
 import axios from "axios";
+import { getCheckoutUrl } from "./checkout";
 
 const QR_CODE_URL = "https://api.qr-code-generator.com/v1/create/";
-const BASE_URL = window.location.href;
 
 export const createQRUrl = cid => {
-  const url = `${BASE_URL}/pages/${cid}`;
+  const url = getCheckoutUrl(cid);
   return createQRImage(url);
 };
 
