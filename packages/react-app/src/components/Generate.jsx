@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input } from "antd";
-import { createQRUrl } from "../util/qr";
+import { createQRImageFromId } from "../util/qr";
+import { getCheckoutUrl } from "../util/checkout";
 
 function Generate(props) {
   const [cid, setCid] = useState();
@@ -15,13 +16,15 @@ function Generate(props) {
     setLoading(true);
 
     try {
-      const res = await createQRUrl(cid);
-      setData(res.data);
+      const res = await createQRImageFromId(cid);
+      setData(res);
     } catch (e) {
       alert("Error getting img", e);
     }
     setLoading(false);
   };
+
+  const url = getCheckoutUrl(cid);
 
   return (
     <div>
@@ -33,7 +36,17 @@ function Generate(props) {
       </Button>
 
       <hr />
-      {data && JSON.stringify(data || {})}
+      {data && (
+        <div>
+          <br />
+          <h1>Your checkout page is ready!</h1>
+          <a href={url} target="_blank">
+            {url}
+          </a>
+          <br />
+          <img src={data} />
+        </div>
+      )}
     </div>
   );
 }

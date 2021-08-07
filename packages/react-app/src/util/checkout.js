@@ -1,7 +1,8 @@
 import faker from "faker";
 
-export const BASE_URL = window.location.hostname;
+export const BASE_URL = window.location.origin;
 export const DEFAULT_NAME = "Checkout Product Gate";
+export const DEFAULT_STORE = 'My Demo Store'
 export const DEFAULT_PRODUCTS = [
   {
     id: 1,

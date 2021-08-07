@@ -1,4 +1,5 @@
-import { Web3Storage } from "web3.storage";
+// import { Web3Storage } from "web3.storage";
+import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js"; // webpack 4
 
 const API_KEY = process.env.REACT_APP_STORAGE_KEY;
 

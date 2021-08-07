@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Catalog from "react-catalog-view";
-import { CONTENT_KEYS, DEFAULT_PRODUCTS, loadCheckoutModal } from "../util/checkout";
+import { CONTENT_KEYS, DEFAULT_PRODUCTS, DEFAULT_STORE, loadCheckoutModal } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
+import { withRouter } from "react-router";
 
-function CheckoutPage({ cid }) {
+function CheckoutPage({ match }) {
+  const cid = match.params.cid;
   const [products, setProducts] = useState([]);
+  const [name, setName] = useState();
   const [error, setError] = useState();
 
   const getData = async () => {
+    console.log("getData", cid);
     if (error) {
       setError("");
     }
-    if (!cid) {
+    if (!cid || cid === "demo") {
+      setProducts(DEFAULT_PRODUCTS);
+      setName(DEFAULT_STORE);
       return;
     }
     try {
@@ -30,6 +36,7 @@ function CheckoutPage({ cid }) {
   return (
     <div>
       {error && <p>This page does not exist</p>}
+      {name && <h1 className="store-heading">{name}</h1>}
       <Catalog
         data={products || DEFAULT_PRODUCTS}
         // Array of JSON Objects (required)
@@ -63,4 +70,4 @@ function CheckoutPage({ cid }) {
     </div>
   );
 }
-export default CheckoutPage;
+export default withRouter(CheckoutPage);

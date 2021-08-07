@@ -10,8 +10,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const { Step } = Steps;
 
 const LAST_STEP = 3;
-function Upload(props) {
-  const isLoggedIn = true; // TODO
+function Upload({ isLoggedIn }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [files, setFiles] = useState([]);
   const [info, setInfo] = useState({ userName: "cbono", title: "LiveStream Broadcast from 5/29", eth: 0.01 });
@@ -108,6 +107,7 @@ function Upload(props) {
             Previous
           </Button>
         )}
+        &nbsp;
         {currentStep < LAST_STEP && (
           <Button disabled={loading} loading={loading} type="primary" onClick={() => updateStep(1)}>
             {currentStep === LAST_STEP - 1 ? "Done" : "Next"}

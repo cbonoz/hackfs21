@@ -2,11 +2,10 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 //import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { Alert, Button, Menu } from "antd";
-import "antd/dist/antd.css";
+
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
-import "./App.css";
 import { Account, Header, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, TARGET_NETWORK } from "./constants";
 import { Transactor } from "./helpers";
@@ -27,6 +26,9 @@ import { capitalize } from "./util";
 import About from "./components/About";
 import Generate from "./components/Generate";
 import CreateWallet from "./components/CreateWallet";
+
+import "antd/dist/antd.css";
+import "./App.css";
 
 const { ethers } = require("ethers");
 
@@ -358,9 +360,11 @@ function App(props) {
     );
   }
 
-  const ROUTES = ["about", "upload", "access", "wallet", "embed"];
+  const ROUTES = ["about", "upload", "wallet", "embed"];
 
   const showHeader = window.location.pathname.indexOf("pages") === -1;
+
+  const isLoggedIn = !!web3Modal.cachedProvider;
 
   return (
     <div className="App">
@@ -402,18 +406,18 @@ function App(props) {
         )}
 
         <Switch>
-          <Route path={["/pages/:cid"]}>
-            <CheckoutPage cid={match.params.cid} />
-          </Route>
           <div className="container">
+            <Route path={["/pages/:cid"]}>
+              <CheckoutPage />
+            </Route>
             <Route exact path={["/", "about"]}>
               <About />
             </Route>
-            <Route exact path={["/embed", "/generate"]}>
+            <Route path={["/embed", "/generate"]}>
               <Generate />
             </Route>
-            <Route exact path={["/upload"]}>
-              <Upload />
+            <Route path={["/upload"]}>
+              <Upload isLoggedIn={isLoggedIn} />
             </Route>
             <Route path={["/wallet"]}>
               <CreateWallet />
@@ -423,20 +427,22 @@ function App(props) {
       </BrowserRouter>
 
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-        <Account
-          address={address}
-          localProvider={localProvider}
-          userSigner={userSigner}
-          mainnetProvider={mainnetProvider}
-          price={price}
-          web3Modal={web3Modal}
-          loadWeb3Modal={loadWeb3Modal}
-          logoutOfWeb3Modal={logoutOfWeb3Modal}
-          blockExplorer={blockExplorer}
-        />
-        {faucetHint}
-      </div>
+      {showHeader && (
+        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+          <Account
+            address={address}
+            localProvider={localProvider}
+            userSigner={userSigner}
+            mainnetProvider={mainnetProvider}
+            price={price}
+            web3Modal={web3Modal}
+            loadWeb3Modal={loadWeb3Modal}
+            logoutOfWeb3Modal={logoutOfWeb3Modal}
+            blockExplorer={blockExplorer}
+          />
+          {faucetHint}
+        </div>
+      )}
     </div>
   );
 }
