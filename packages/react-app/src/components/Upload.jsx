@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Input, Button, Steps, Layout } from "antd";
+import { FileDropzone } from "./FileDropzone";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -25,6 +26,42 @@ function Upload(props) {
               In order to create a listing, you must login with your metamask or wallet account. Click 'connect' in the
               top right to begin.
             </p>
+          </div>
+        );
+
+      case 1:
+        return (
+          <div>
+            <FileDropzone files={files} setFiles={setFiles} />
+          </div>
+        );
+
+      case 2: // done
+        return (
+          <div className="complete-section">
+            <h2 className="sell-header">Complete!</h2>
+
+            {Object.keys(result).map(k => {
+              return (
+                <li>
+                  {k}: {JSON.stringify(result[k]).replaceAll('"', "")}
+                </li>
+              );
+            })}
+            <h3>Listing information</h3>
+            {Object.keys(info).map(k => {
+              return (
+                <li key={k}>
+                  {k}: {JSON.stringify(info[k]).replaceAll('"', "")}
+                </li>
+              );
+            })}
+
+            {result.url && (
+              <a href={result.url} target="_blank">
+                Click here to view listing.
+              </a>
+            )}
           </div>
         );
     }

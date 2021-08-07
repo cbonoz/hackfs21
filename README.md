@@ -28,9 +28,9 @@ Pain points:
 
 <!--
 ### Technologies used
-* IPFS (Hosting and sharing of assets)
+* IPFS (Hosting and sharing of assets): https://web3.storage/
 * Pillar (payments and wallet creation)
-* Unlock Protocol (purchasing)
+* Unlock Protocol (purchasing): https://app.unlock-protocol.com/dashboard
 * Audius (music and content listings)
 -->
 
@@ -43,6 +43,20 @@ Define the following env variables
 </pre>
 
 `yarn; yarn start`
+
+
+<!-- 
+Demo flow:
+1. Intro
+2. Assets
+3. Upload
+4. Generate CID with hosted content
+5. Preview page
+6. Show checkout modal
+7. Generate wallet
+8. NFT, other potential receipt
+
+-->
 
 ### Future Work
 

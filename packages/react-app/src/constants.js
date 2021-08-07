@@ -153,6 +153,6 @@ export const NETWORK = chainId => {
   }
 };
 
-export const TARGET_NETWORK = NETWORKS.ropsten;
-export const APP_NAME = 'CheckoutFS'
-export const APP_DESC = 'Create beautiful checkout pages and menus hosted on IPFS.'
+export const TARGET_NETWORK = NETWORKS.rinkeby;
+export const APP_NAME = "CheckoutFS";
+export const APP_DESC = "Create beautiful checkout pages and menus hosted on IPFS.";

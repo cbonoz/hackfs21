@@ -21,31 +21,14 @@ import {
   useUserSigner,
 } from "./hooks";
 // import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph } from "./views";
 import Upload from "./components/Upload";
+import CheckoutPage from "./components/CheckoutPage";
 import { capitalize } from "./util";
+import About from "./components/About";
+import Generate from "./components/Generate";
 
 const { ethers } = require("ethers");
-/*
-    Welcome to 🏗 scaffold-eth !
 
-    Code:
-    https://github.com/austintgriffith/scaffold-eth
-
-    Support:
-    https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA
-    or DM @austingriffith on twitter or telegram
-
-    You should get your own Infura.io ID and put it in `constants.js`
-    (this is your connection to the main Ethereum network for ENS etc.)
-
-
-    🌏 EXTERNAL CONTRACTS:
-    You can also bring in contract artifacts in `constants.js`
-    (and then use the `useExternalContractLoader()` hook!)
-*/
-
-/// 📡 What chain are your contracts deployed to?
 const targetNetwork = TARGET_NETWORK; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
@@ -374,7 +357,7 @@ function App(props) {
     );
   }
 
-  const ROUTES = ["about", "create", "access"];
+  const ROUTES = ["about", "upload", "access", "wallet", "embed"];
 
   return (
     <div className="App">
@@ -411,30 +394,19 @@ function App(props) {
 
         <Switch>
           <Route exact path={["/", "about"]}>
-            {/*
-                🎛 this scaffolding is full of commonly used components
-                this <Contract/> component will automatically parse your ABI
-                and give you a form to interact with it locally
-            */}
-
-            {/* <Contract
-              name="YourContract"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            /> */}
-
-            {/* <Home /> */}
+            <About />
           </Route>
-          <Route>
-            <Upload
-              name="YourContract"
-              signer={userSigner}
-              provider={localProvider}
-              address={address}
-              blockExplorer={blockExplorer}
-            />
+          <Route exact path={["/embed", "/generate"]}>
+            <Generate />
+          </Route>
+          <Route exact path={["/upload"]}>
+            <Upload />
+          </Route>
+          <Route path={["/pages"]}>
+            <CheckoutPage />
+          </Route>
+          <Route path={["/wallet"]}>
+            {/* <CheckoutPage /> */}
           </Route>
         </Switch>
       </BrowserRouter>
