@@ -1,30 +1,35 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Catalog from "react-catalog-view";
 import { CONTENT_KEYS, DEFAULT_PRODUCTS, loadCheckoutModal } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 
 function CheckoutPage({ cid }) {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState();
 
   const getData = async () => {
+    if (error) {
+      setError("");
+    }
     if (!cid) {
-      return
+      return;
     }
     try {
-      const res = await retrieveFiles(cid)
-      setProducts(res.data)
+      const res = await retrieveFiles(cid);
+      setProducts(res.data);
     } catch (e) {
-      console.error(e)
+      console.error(e);
+      setError(e);
     }
-  }
+  };
 
   useEffect(() => {
-    getData()
-  }, [cid])
-
+    getData();
+  }, [cid]);
 
   return (
     <div>
+      {error && <p>This page does not exist</p>}
       <Catalog
         data={products || DEFAULT_PRODUCTS}
         // Array of JSON Objects (required)
