@@ -89,13 +89,13 @@ function Upload({ isLoggedIn }) {
 
   return (
     <div className="content">
-      <h1>List new stream in marketplace</h1>
+      <h1>Create a new catalog</h1>
       <Header>
         <Steps current={currentStep}>
           <Step title="Login" description="Authenticate." />
-          <Step title="Information" description="What are you listing?" />
-          <Step title="Upload" description="Add streams for sale." />
-          <Step title="Done" description="View your listing." />
+          <Step title="Information" description="What page are you creating" />
+          <Step title="Upload" description="Add files and assets." />
+          <Step title="Done" description="View your checkout page." />
         </Steps>
       </Header>
       <Content>

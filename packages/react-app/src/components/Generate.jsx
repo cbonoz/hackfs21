@@ -30,10 +30,13 @@ function Generate(props) {
     <div>
       <Input value={cid} onChange={e => setCid(e.target.value)} prefix={"Enter CID"} />
       <br />
+      <br />
 
       <Button onClick={getQr} disabled={!cid || loading} loading={loading}>
         Generate!
       </Button>
+      <br />
+      <br />
 
       <hr />
       {data && (

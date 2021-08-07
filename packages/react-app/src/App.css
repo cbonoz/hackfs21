@@ -13,6 +13,11 @@
   cursor: pointer;
 }
 
+.about-page div {
+  font-size: 20px;
+  line-height: 40px;
+}
+
 .store-heading {
   font-family: "cursive", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   padding-bottom: 10px;
