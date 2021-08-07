@@ -360,7 +360,7 @@ function App(props) {
     );
   }
 
-  const ROUTES = ["about", "upload", "wallet", "embed"];
+  const ROUTES = ["upload", "wallet", "embed"];
 
   const showHeader = window.location.pathname.indexOf("pages") === -1;
 
@@ -369,15 +369,23 @@ function App(props) {
   return (
     <div className="App">
       {/* ✏️ Edit the header and change the title to your project name */}
-      {showHeader && (
-        <span>
-          <Header />
-          {networkDisplay}
-        </span>
-      )}
+      <span>
+        {showHeader && <Header />}
+        {networkDisplay}
+      </span>
       <BrowserRouter>
         {showHeader && (
           <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
+            <Menu.Item key="/">
+              <Link
+                onClick={() => {
+                  setRoute("/");
+                }}
+                to="/"
+              >
+                About
+              </Link>
+            </Menu.Item>
             {ROUTES.map(r => {
               const link = `/${r}`;
               return (
@@ -393,15 +401,6 @@ function App(props) {
                 </Menu.Item>
               );
             })}
-
-            <Menu.Item key="/">
-              <Link
-                onClick={() => {
-                  setRoute("/");
-                }}
-                to="/"
-              ></Link>
-            </Menu.Item>
           </Menu>
         )}
 
@@ -425,24 +424,21 @@ function App(props) {
           </div>
         </Switch>
       </BrowserRouter>
-
       {/* 👨‍💼 Your account is in the top right with a wallet at connect options */}
-      {showHeader && (
-        <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
-          <Account
-            address={address}
-            localProvider={localProvider}
-            userSigner={userSigner}
-            mainnetProvider={mainnetProvider}
-            price={price}
-            web3Modal={web3Modal}
-            loadWeb3Modal={loadWeb3Modal}
-            logoutOfWeb3Modal={logoutOfWeb3Modal}
-            blockExplorer={blockExplorer}
-          />
-          {faucetHint}
-        </div>
-      )}
+      <div style={{ position: "fixed", textAlign: "right", right: 0, top: 0, padding: 10 }}>
+        <Account
+          address={address}
+          localProvider={localProvider}
+          userSigner={userSigner}
+          mainnetProvider={mainnetProvider}
+          price={price}
+          web3Modal={web3Modal}
+          loadWeb3Modal={loadWeb3Modal}
+          logoutOfWeb3Modal={logoutOfWeb3Modal}
+          blockExplorer={blockExplorer}
+        />
+        {faucetHint}
+      </div>
     </div>
   );
 }

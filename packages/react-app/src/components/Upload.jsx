@@ -17,6 +17,11 @@ function Upload({ isLoggedIn }) {
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    console.log("isLoggedIn", isLoggedIn);
+    if (isLoggedIn && currentStep === 0) updateStep(1);
+  }, [isLoggedIn]);
+
   const updateStep = async offset => {
     const nextStep = currentStep + offset;
 
@@ -89,7 +94,7 @@ function Upload({ isLoggedIn }) {
 
   return (
     <div className="content">
-      <h1>Create a new catalog</h1>
+      <h1>Create a new listing.</h1>
       <Header>
         <Steps current={currentStep}>
           <Step title="Login" description="Authenticate." />

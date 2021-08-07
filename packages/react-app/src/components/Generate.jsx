@@ -28,6 +28,7 @@ function Generate(props) {
 
   return (
     <div>
+      <h1>Generate a QR code for your hosted checkout page.</h1>
       <Input value={cid} onChange={e => setCid(e.target.value)} prefix={"Enter CID"} />
       <br />
       <br />

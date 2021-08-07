@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Catalog from "react-catalog-view";
-import { CONTENT_KEYS, DEFAULT_PRODUCTS, DEFAULT_STORE, loadCheckoutModal } from "../util/checkout";
+import { BASE_URL, CONTENT_KEYS, DEFAULT_PRODUCTS, DEFAULT_STORE, loadCheckoutModal } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { APP_NAME } from "../constants";
 
 function CheckoutPage({ match }) {
   const cid = match.params.cid;
@@ -36,7 +38,13 @@ function CheckoutPage({ match }) {
   return (
     <div>
       {error && <p>This page does not exist</p>}
-      {name && <h1 className="store-heading">{name}</h1>}
+      {name && (
+        <h1 className="store-heading">
+          <ShoppingCartOutlined />
+          &nbsp;
+          {name}
+        </h1>
+      )}
       <Catalog
         data={products || DEFAULT_PRODUCTS}
         // Array of JSON Objects (required)
@@ -67,6 +75,10 @@ function CheckoutPage({ match }) {
         // Any non zero number will override default cards
         // and will show that many skeleton cards.
       />
+
+      <p>
+        This page was generated with <a href={BASE_URL}>{APP_NAME}</a>.
+      </p>
     </div>
   );
 }
