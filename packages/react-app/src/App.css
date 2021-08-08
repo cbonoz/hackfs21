@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.sell-header {
+  margin-top: 20px;
+}
+
 .sell-area {
   padding: 20px;
   min-height: 400px;

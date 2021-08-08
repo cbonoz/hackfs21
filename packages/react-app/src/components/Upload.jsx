@@ -64,6 +64,7 @@ function Upload({ isLoggedIn }) {
       case 1:
         return (
           <div>
+            <h2 className="sell-header">Enter page information:</h2>
             <Input
               addonBefore={"Title"}
               placeholder="Enter title of page"
