@@ -9,6 +9,8 @@ const formatRecord = (key, record) => {
   }
   return isNaN(record) || record > 10000000 ? record : Math.round(record * 100) / 100;
 };
+
+
 export function bytesToSize(bytes) {
   var sizes = ["Bytes", "KB", "MB", "GB", "TB"];
   if (bytes == 0) return "0 Byte";

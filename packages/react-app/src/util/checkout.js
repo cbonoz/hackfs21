@@ -1,8 +1,9 @@
 import faker from "faker";
+import { NETWORKS, TARGET_NETWORK } from "../constants";
 
 export const BASE_URL = window.location.origin;
 export const DEFAULT_NAME = "Checkout Product Gate";
-export const DEFAULT_STORE = 'My Demo Store'
+export const DEFAULT_STORE = "My Demo Store";
 export const DEFAULT_PRODUCTS = [
   {
     id: 1,
@@ -42,6 +43,29 @@ export const CONTENT_KEYS = {
   discountCurrencyKey: "currency",
 };
 
+export const createProduct = (id, imgUrl, title, description, price, currency) => {
+  return {
+    id,
+    [CONTENT_KEYS.imgKey]: imgUrl,
+    [CONTENT_KEYS.cardTitleKey]: title,
+    [CONTENT_KEYS.cardDescriptionKey]: description,
+    [CONTENT_KEYS.priceCurrencyKey]: currency || "Eth",
+    [CONTENT_KEYS.priceKey]: price || 0.01,
+  };
+};
+
+export const mapFilesToProducts = files => {
+  console.log("files", files);
+  const products = files.map((x, i) => createProduct(i));
+  // TODO: implement mapping to product list.
+  return products;
+};
+
+const NETWORK_MAP = {
+  [NETWORKS.mainnet.name]: 1,
+  [NETWORKS.rinkeby.name]: 4,
+};
+
 export const loadCheckoutModal = ({ title }) => {
   if (!window.unlockProtocol) {
     alert("Cannot open modal - unlock not initialized: ");
@@ -49,29 +73,19 @@ export const loadCheckoutModal = ({ title }) => {
   }
 
   window.unlockProtocolConfig = {
-    network: 1, // Network ID (1 is for mainnet, 4 for rinkeby... etc)
+    network: NETWORK_MAP[TARGET_NETWORK.name] || 4, // Network ID (1 is for mainnet, 4 for rinkeby... etc)
     locks: {
-      "0xabc": {
-        // 0xabc is the address of a lock.
-        name: "One Week",
-        network: 1, // you can customize the network for each lock
-      },
-      "0xdef": {
-        name: "One Month",
-        network: 100, // lock on the xDai chain
-      },
       "0x3f587bFA738F98a35D5c9Bd6eB5a71eFD3301459": {
         name: title,
         network: 1,
         // if no name is used, the default from the contract is used
       }, // you can add as many locks as you want.
     },
-    icon: "https://app.unlock-protocol.com/static/images/svg/default.svg",
+    icon: "",
     callToAction: {
-      default: "This content is locked. Pay with cryptocurrency to access it!",
+      default: "Purchase playlist " + title + "?",
       expired: "This is what is shown when the user had a key which is now expired",
-      pending:
-        "This is the message shown when the user sent a transaction to purchase a key which has not be confirmed yet",
+      pending: "Transaction in progress!",
       confirmed: "This is the message shown when the user has a confirmed key",
       noWallet: "This is the message shown when the user does not have a crypto wallet which is required...",
     },

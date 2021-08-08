@@ -29,6 +29,8 @@ import CreateWallet from "./components/CreateWallet";
 
 import "antd/dist/antd.css";
 import "./App.css";
+import SearchMusic from "./components/SearchMusic";
+import MusicPage from "./components/MusicPage";
 
 const { ethers } = require("ethers");
 
@@ -108,6 +110,8 @@ const web3Modal = new Web3Modal({
   },
 });
 
+const showMusic = true;
+
 function App(props) {
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
 
@@ -125,7 +129,9 @@ function App(props) {
   };
 
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangePrice(targetNetwork, mainnetProvider);
+  // https://github.com/austintgriffith/scaffold-eth/issues/308
+  // const price = useExchangePrice(targetNetwork, mainnetProvider);
+  const price = 0;
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
@@ -361,6 +367,9 @@ function App(props) {
   }
 
   const ROUTES = ["upload", "wallet", "embed"];
+  if (showMusic) {
+    ROUTES.push("music");
+  }
 
   const showHeader = window.location.pathname.indexOf("pages") === -1;
 
@@ -420,6 +429,12 @@ function App(props) {
             </Route>
             <Route path={["/wallet"]}>
               <CreateWallet />
+            </Route>
+            <Route exact path={["/music"]}>
+              <SearchMusic />
+            </Route>
+            <Route path={["/music/:playlistId"]}>
+              <MusicPage />
             </Route>
           </div>
         </Switch>

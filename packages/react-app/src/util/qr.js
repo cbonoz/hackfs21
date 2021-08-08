@@ -1,8 +1,8 @@
 import axios from "axios";
 import { getCheckoutUrl } from "./checkout";
-
+const DIMENSION = "250x250";
 // const QR_CODE_URL = "https://api.qr-code-generator.com/v1/create/";
-const QR_CODE_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+const QR_CODE_URL = `https://api.qrserver.com/v1/create-qr-code/?size=${DIMENSION}&data=`;
 
 export const createQRImageFromId = async cid => {
   const url = getCheckoutUrl(cid);

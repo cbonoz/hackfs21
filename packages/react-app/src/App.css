@@ -13,6 +13,11 @@
   cursor: pointer;
 }
 
+.sell-area {
+  padding: 20px;
+  min-height: 400px;
+}
+
 .about-page div {
   font-size: 20px;
   line-height: 40px;

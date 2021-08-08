@@ -13,7 +13,7 @@ const LAST_STEP = 3;
 function Upload({ isLoggedIn }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [files, setFiles] = useState([]);
-  const [info, setInfo] = useState({ userName: "cbono", title: "LiveStream Broadcast from 5/29", eth: 0.01 });
+  const [info, setInfo] = useState({ title: "Checkout Page" });
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +21,10 @@ function Upload({ isLoggedIn }) {
     console.log("isLoggedIn", isLoggedIn);
     if (isLoggedIn && currentStep === 0) updateStep(1);
   }, [isLoggedIn]);
+
+  const updateInfo = update => {
+    setInfo({ ...info, ...update });
+  };
 
   const updateStep = async offset => {
     const nextStep = currentStep + offset;
@@ -33,7 +37,10 @@ function Upload({ isLoggedIn }) {
 
       // https://docs.web3.storage/how-tos/store/#preparing-files-for-upload
       // TODO: add metadata
-      const cid = await storeFiles(files);
+      const blob = new Blob([JSON.stringify(info)], { type: "application/json" });
+
+      const fileObjects = [files.map(x => x), new File([blob], "info.json")];
+      const cid = await storeFiles(fileObjects);
       const data = { cid, url: getCheckoutUrl(cid) };
       setResult(data);
     }
@@ -57,11 +64,24 @@ function Upload({ isLoggedIn }) {
       case 1:
         return (
           <div>
-            <FileDropzone files={files} setFiles={setFiles} />
+            <Input
+              addonBefore={"Title"}
+              placeholder="Enter title of page"
+              value={info.title}
+              onChange={e => updateInfo({ title: e.target.value })}
+            />
           </div>
         );
 
-      case 2: // done
+      case 2:
+        return (
+          <div>
+            <h2 className="sell-header">Enter page information</h2>
+            <FileDropzone info={info} files={files} setFiles={setFiles} updateInfo={updateInfo} />
+          </div>
+        );
+
+      case 3: // done
         return (
           <div className="complete-section">
             <h2 className="sell-header">Complete!</h2>
@@ -98,7 +118,7 @@ function Upload({ isLoggedIn }) {
       <Header>
         <Steps current={currentStep}>
           <Step title="Login" description="Authenticate." />
-          <Step title="Information" description="What page are you creating" />
+          <Step title="Information" description="What page are you creating?" />
           <Step title="Upload" description="Add files and assets." />
           <Step title="Done" description="View your checkout page." />
         </Steps>

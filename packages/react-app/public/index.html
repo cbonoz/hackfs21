@@ -9,6 +9,26 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
     <script>
+      window.unlockProtocolConfig = {
+        network: 4, // Network ID (1 is for mainnet, 4 for rinkeby... etc)
+        locks: {
+          "0x3f587bFA738F98a35D5c9Bd6eB5a71eFD3301459": {
+            name: "Demo Lock",
+            network: 1,
+            // if no name is used, the default from the contract is used
+          }, // you can add as many locks as you want.
+        },
+        icon: "https://app.unlock-protocol.com/static/images/svg/default.svg",
+        callToAction: {
+          default: "This content is locked. Pay with cryptocurrency to access it!",
+          expired: "This is what is shown when the user had a key which is now expired",
+          pending:
+            "This is the message shown when the user sent a transaction to purchase a key which has not be confirmed yet",
+          confirmed: "This is the message shown when the user has a confirmed key",
+          noWallet: "This is the message shown when the user does not have a crypto wallet which is required...",
+        },
+        referrer: "0xreferrer", // Address of the referrer who will earn UDT governance tokens if the transaction is eligible.
+      };
       (function (d, s) {
         var js = d.createElement(s),
           sc = d.getElementsByTagName(s)[0];

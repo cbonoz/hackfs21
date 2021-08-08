@@ -24,7 +24,8 @@ function CheckoutPage({ match }) {
     }
     try {
       const res = await retrieveFiles(cid);
-      setProducts(res.data);
+      const newProducts = mapFilesToProducts(res)
+      setProducts(newProducts);
     } catch (e) {
       console.error(e);
       setError(e);
