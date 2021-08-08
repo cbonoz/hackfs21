@@ -77,7 +77,7 @@ export const loadCheckoutModal = ({ title }) => {
     locks: {
       "0x3f587bFA738F98a35D5c9Bd6eB5a71eFD3301459": {
         name: title,
-        network: 1,
+        network: 4,
         // if no name is used, the default from the contract is used
       }, // you can add as many locks as you want.
     },
@@ -87,7 +87,7 @@ export const loadCheckoutModal = ({ title }) => {
       expired: "This is what is shown when the user had a key which is now expired",
       pending: "Transaction in progress!",
       confirmed: "This is the message shown when the user has a confirmed key",
-      noWallet: "This is the message shown when the user does not have a crypto wallet which is required...",
+      noWallet: "Your wallet is currently not connected",
     },
     referrer: "0xreferrer", // Address of the referrer who will earn UDT governance tokens if the transaction is eligible.
   };

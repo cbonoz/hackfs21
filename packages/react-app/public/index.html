@@ -14,18 +14,17 @@
         locks: {
           "0x3f587bFA738F98a35D5c9Bd6eB5a71eFD3301459": {
             name: "Demo Lock",
-            network: 1,
+            network: 4,
             // if no name is used, the default from the contract is used
           }, // you can add as many locks as you want.
         },
         icon: "https://app.unlock-protocol.com/static/images/svg/default.svg",
         callToAction: {
-          default: "This content is locked. Pay with cryptocurrency to access it!",
+          default: "This product is locked. Pay with cryptocurrency to purchase it!",
           expired: "This is what is shown when the user had a key which is now expired",
-          pending:
-            "This is the message shown when the user sent a transaction to purchase a key which has not be confirmed yet",
+          pending: "Transaction in progress!",
           confirmed: "This is the message shown when the user has a confirmed key",
-          noWallet: "This is the message shown when the user does not have a crypto wallet which is required...",
+          noWallet: "Your wallet is currently not connected",
         },
         referrer: "0xreferrer", // Address of the referrer who will earn UDT governance tokens if the transaction is eligible.
       };
