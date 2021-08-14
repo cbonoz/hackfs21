@@ -10,7 +10,7 @@ import {
 } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { LoadingOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { APP_NAME } from "../constants";
 import { loadStream } from "../util/ceramic";
 import { getEthPrice } from "../util/fluence";
@@ -21,11 +21,15 @@ function CheckoutPage({ match }) {
   const [name, setName] = useState();
   const [error, setError] = useState();
   const [ethPrice, setEthPrice] = useState();
+  const [loading, setLoading] = useState(false)
 
   const getPrice = async () => {
     const latestPrice = await getEthPrice();
-
-    setEthPrice(latestPrice);
+    try {
+      setEthPrice(latestPrice[0].result);
+    } catch (e) {
+      console.error("error hitting fluence node for price", e);
+    }
   };
 
   const getData = async () => {
@@ -39,10 +43,12 @@ function CheckoutPage({ match }) {
       return;
     }
 
+    setLoading(true)
+
     try {
       const res = await retrieveFiles(cid);
       const files = await res.files();
-      const productData = await mapFilesToProducts(files);
+      const productData = await mapFilesToProducts(files, ethPrice);
       const newProducts = productData.products;
       if (!newProducts) {
         setError("No products found");
@@ -54,15 +60,25 @@ function CheckoutPage({ match }) {
       console.error(e);
       setError(e);
     }
+
+    setLoading(false)
   };
 
   useEffect(() => {
     getData();
+  }, [ethPrice]);
+
+  useEffect(() => {
     getPrice();
   }, [cid]);
 
+  if (loading) {
+    return <LoadingOutlined/>
+  }
+
   return (
     <div>
+      {ethPrice && <p>Eth price: {ethPrice}</p>}
       {error && <p>This page does not exist</p>}
       {name && (
         <h1 className="store-heading">

@@ -3,7 +3,7 @@
 // client-peer/index.ts
 import { createClient, setLogLevel, FluenceClient } from "@fluencelabs/fluence";
 import { krasnodar, Node } from "@fluencelabs/fluence-network-environment";
-// import { get_price } from "./get_crypto_prices";
+import { get_price } from "./get_price";
 
 interface NodeServicePair {
   node: string;
@@ -33,17 +33,17 @@ export const getEthPrice = async () => {
     fluence = await createClient(krasnodar[2]);
   }
   console.log("created a fluence client %s with relay %s", fluence.selfPeerId, fluence.relayPeerId);
-  const network_result = 10;
+  //   const network_result = 10;
 
   // call the get_price function -- sequential processing
-  //   const network_result = await get_price(
-  //     fluence,
-  //     "ethereum",
-  //     "usd",
-  //     "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi",
-  //     "25f9123a-f386-4cb2-9c1e-bb7c247c9c09",
-  //     "b2790307-055e-41ca-9640-3c41856d464b",
-  //   );
+  const network_result = await get_price(
+    fluence,
+    "ethereum",
+    "usd",
+    "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi",
+    "25f9123a-f386-4cb2-9c1e-bb7c247c9c09",
+    "b2790307-055e-41ca-9640-3c41856d464b",
+  );
   console.log("seq result: ", network_result);
   return network_result;
 };

@@ -55,8 +55,8 @@ export const createProduct = (id, imgUrl, title, description, price, currency) =
   };
 };
 
-export const mapFilesToProducts = async files => {
-  console.log("files", files);
+export const mapFilesToProducts = async (files, ethPrice) => {
+  console.log("mapFilesToProducs", files, ethPrice);
 
   const infoFile = files.filter(x => x.name.startsWith("info_"))[0];
   if (!infoFile) {
@@ -65,19 +65,22 @@ export const mapFilesToProducts = async files => {
   const streamId = infoFile.name.split(".")[0].split("_")[1];
   const data = await loadStream(streamId);
 
-  console.log("mapFiles", data);
+  console.log("loadStream", data);
   // Attach metadata to products.
 
   const productFiles = files.filter(x => !x.name.startsWith("info_"));
 
   const products = productFiles.map((x, i) => {
     const info = data[x.name];
+    const ethAmount = info[CONTENT_KEYS.priceKey];
+    // const usdPrice = ethAmount * ethPrice;
+    // const priceString = `(${"$" + usdPrice}) ${ethAmount}`;
     return createProduct(
       i,
       URL.createObjectURL(x),
       info[CONTENT_KEYS.cardTitleKey],
       info[CONTENT_KEYS.cardDescriptionKey],
-      info[CONTENT_KEYS.priceKey],
+      ethAmount,
     );
   });
 
