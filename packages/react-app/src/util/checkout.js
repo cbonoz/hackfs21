@@ -57,16 +57,31 @@ export const createProduct = (id, imgUrl, title, description, price, currency) =
 
 export const mapFilesToProducts = async files => {
   console.log("files", files);
-  // TODO: implement mapping to product list.
-  const products = files.map((x, i) => createProduct(i));
 
-  const infoFile = res.find(x => x.name === "info.json");
-  if (infoFile) {
-    const data = await loadStream(infoFile.streamId);
-    // Attach metadata to products.
+  const infoFile = files.filter(x => x.name.startsWith("info_"))[0];
+  if (!infoFile) {
+    return [];
   }
+  const streamId = infoFile.name.split(".")[0].split("_")[1];
+  const data = await loadStream(streamId);
 
-  return products;
+  console.log("mapFiles", data);
+  // Attach metadata to products.
+
+  const productFiles = files.filter(x => !x.name.startsWith("info_"));
+
+  const products = productFiles.map((x, i) => {
+    const info = data[x.name];
+    return createProduct(
+      i,
+      URL.createObjectURL(x),
+      info[CONTENT_KEYS.cardTitleKey],
+      info[CONTENT_KEYS.cardDescriptionKey],
+      info[CONTENT_KEYS.priceKey],
+    );
+  });
+
+  return { products, data };
 };
 
 const NETWORK_MAP = {

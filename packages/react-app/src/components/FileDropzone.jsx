@@ -2,6 +2,7 @@ import { Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { bytesToSize } from "../util";
+import { CONTENT_KEYS } from "../util/checkout";
 
 const thumbsContainer = {
   display: "flex",
@@ -18,7 +19,7 @@ const thumb = {
   marginRight: 8,
   width: 400,
   textAlign: "left",
-  height: 200,
+  height: 230,
   overflow: "hidden",
   padding: 4,
   boxSizing: "border-box",
@@ -51,11 +52,15 @@ export function FileDropzone({ files, setFiles, updateInfo, info }) {
   });
 
   const thumbs = files.map(file => {
+    const fileInfo = info[file.name] || {};
+    const updateFileInfo = (key, value) => {
+      updateInfo({ [file.name]: { ...fileInfo, [key]: value } });
+    };
     return (
       <div style={thumb} key={file.name}>
         <div style={thumbInner}>
           <p>
-            {/* <img src={file.preview} className="preview-image" /> */}
+            <img src={file.preview} className="preview-image" />
             <b>{file.name}</b>
             <br />
             {file.size && (
@@ -69,14 +74,20 @@ export function FileDropzone({ files, setFiles, updateInfo, info }) {
             <Input
               addonBefore={"ItemName"}
               placeholder="Enter item name"
-              value={info[`${file.name}-name`]}
-              onChange={e => updateInfo({ [`${file.name}-name`]: e.target.value })}
+              value={fileInfo[CONTENT_KEYS.cardTitleKey]}
+              onChange={e => updateFileInfo(CONTENT_KEYS.cardTitleKey, e.target.value)}
             />
             <Input
-              addonBefore={"Price (eth - optional)"}
+              addonBefore={"Description"}
+              placeholder="Enter description"
+              value={fileInfo[CONTENT_KEYS.cardDescriptionKey]}
+              onChange={e => updateFileInfo(CONTENT_KEYS.cardDescriptionKey, e.target.value)}
+            />
+            <Input
+              addonBefore={"Price (eth)"}
               placeholder="Enter eth price"
-              value={info[`${file.name}-price`]}
-              onChange={e => updateInfo({ [`${file.name}-price`]: e.target.value })}
+              value={fileInfo[CONTENT_KEYS.priceKey]}
+              onChange={e => updateFileInfo(CONTENT_KEYS.priceKey, e.target.value)}
             />
           </p>
         </div>

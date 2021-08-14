@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Catalog from "react-catalog-view";
-import { BASE_URL, CONTENT_KEYS, DEFAULT_PRODUCTS, DEFAULT_STORE, loadCheckoutModal } from "../util/checkout";
+import {
+  BASE_URL,
+  CONTENT_KEYS,
+  DEFAULT_PRODUCTS,
+  DEFAULT_STORE,
+  loadCheckoutModal,
+  mapFilesToProducts,
+} from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
 import { ShoppingCartOutlined } from "@ant-design/icons";
@@ -18,7 +25,7 @@ function CheckoutPage({ match }) {
   const getPrice = async () => {
     const latestPrice = await getEthPrice();
 
-    setEthPrice(latestPrice)
+    setEthPrice(latestPrice);
   };
 
   const getData = async () => {
@@ -34,8 +41,15 @@ function CheckoutPage({ match }) {
 
     try {
       const res = await retrieveFiles(cid);
-      const newProducts = await mapFilesToProducts(res);
+      const files = await res.files();
+      const productData = await mapFilesToProducts(files);
+      const newProducts = productData.products;
+      if (!newProducts) {
+        setError("No products found");
+      }
       setProducts(newProducts);
+      const name = productData.data.title;
+      setName(name);
     } catch (e) {
       console.error(e);
       setError(e);

@@ -7,7 +7,9 @@
 }
 
 .preview-image {
-  height: 50px;
+  height: 75px;
+  margin-right: 4px;
+  margin-bottom: 4px;
 }
 
 .dropzone {

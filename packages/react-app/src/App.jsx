@@ -425,7 +425,7 @@ function App(props) {
               <Generate />
             </Route>
             <Route path={["/upload"]}>
-              <Upload isLoggedIn={isLoggedIn} />
+              <Upload isLoggedIn={isLoggedIn} address={address} />
             </Route>
             <Route path={["/wallet"]}>
               <CreateWallet />

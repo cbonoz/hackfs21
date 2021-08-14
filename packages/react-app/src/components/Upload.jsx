@@ -11,7 +11,7 @@ const { Header, Footer, Sider, Content } = Layout;
 const { Step } = Steps;
 
 const LAST_STEP = 3;
-function Upload({ isLoggedIn }) {
+function Upload({ isLoggedIn, address }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [files, setFiles] = useState([]);
   const [info, setInfo] = useState({ title: "Checkout Page" });
@@ -40,18 +40,21 @@ function Upload({ isLoggedIn }) {
 
       // https://docs.web3.storage/how-tos/store/#preparing-files-for-upload
       try {
-        await initCeramic();
+        await initCeramic(address);
       } catch (e) {
         console.error("error init", e); // Possibly already initialized - will error in create otherwise.
       }
-
+      let cid;
+      let streamId;
       try {
-        const streamId = await createStream(info);
+        streamId = await createStream(info);
+        // streamId = 1;
         const blob = new Blob([JSON.stringify({ streamId })], { type: "application/json" });
-        const fileObjects = [files.map(x => x), new File([blob], "streamId.json")];
-        const cid = await storeFiles(fileObjects);
+        const infoFileName = `info_${streamId}.json`;
+        const fileObjects = [...files.map(x => x), new File([blob], infoFileName)];
+        cid = await storeFiles(fileObjects);
       } catch (e) {
-        console.error("erorr uploading files", e);
+        console.error("error uploading files", e);
         alert("Error uploading files: " + e.toString());
         return;
       } finally {
