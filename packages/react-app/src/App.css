@@ -19,6 +19,11 @@
   cursor: pointer;
 }
 
+.rcv-card-sm .rcv-product-image-container,
+.rcv-card-sm .rcv-product-image-container-custom {
+  padding-right: 25px;
+}
+
 .sell-header {
   margin-top: 20px;
 }

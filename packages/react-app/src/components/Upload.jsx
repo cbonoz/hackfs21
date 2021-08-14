@@ -87,7 +87,7 @@ function Upload({ isLoggedIn, address }) {
           <div>
             <h2 className="sell-header">Enter page information:</h2>
             <Input
-              addonBefore={"Title"}
+              addonBefore={"Title: "}
               placeholder="Enter title of page"
               value={info.title}
               onChange={e => updateInfo({ title: e.target.value })}
@@ -136,7 +136,7 @@ function Upload({ isLoggedIn, address }) {
 
   return (
     <div className="content">
-      <h1>Create a new listing.</h1>
+      <h1>Create a new CheckoutFS listing.</h1>
       <Header>
         <Steps current={currentStep}>
           <Step title="Login" description="Authenticate." />

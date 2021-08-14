@@ -12,7 +12,7 @@ import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { APP_NAME } from "../constants";
-import { getTracks } from "../util/audius";
+import { getPlaylist, getTracks } from "../util/audius";
 
 function MusicPage({ match }) {
   const playlistId = match.params.playlistId;
@@ -30,14 +30,25 @@ function MusicPage({ match }) {
     try {
       const res = await getTracks(playlistId);
       const trackData = res.data.data;
-      setName(playlistId);
       const tracks = trackData.map((x, i) =>
         createProduct(i, x.artwork["150x150"], x.title, x.description, 0.01, "Eth"),
       );
       setProducts(tracks);
     } catch (e) {
+      let err = e.toString();
+      if (err.indexOf("Network Error") !== -1) {
+        err = "There was CORS error attempting to conenct to the Audius API";
+      }
       console.error(e);
-      setError(e);
+      setError(err);
+    }
+
+    try {
+      const res = await getPlaylist(playlistId);
+      setName(res.data.data[0].playlist_name + " ♫");
+    } catch (e) {
+      console.error("error getting playlist", e);
+      setName(playlistId);
     }
   };
 
@@ -47,6 +58,7 @@ function MusicPage({ match }) {
 
   return (
     <div>
+      <p>Playlist</p>
       {error && <p>{error.toString()}</p>}
       {name && (
         <h1 className="store-heading">

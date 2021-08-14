@@ -72,19 +72,19 @@ export function FileDropzone({ files, setFiles, updateInfo, info }) {
             {file.type && <span>Type: {file.type}</span>}
 
             <Input
-              addonBefore={"ItemName"}
+              addonBefore={"ItemName: "}
               placeholder="Enter item name"
               value={fileInfo[CONTENT_KEYS.cardTitleKey]}
               onChange={e => updateFileInfo(CONTENT_KEYS.cardTitleKey, e.target.value)}
             />
             <Input
-              addonBefore={"Description"}
+              addonBefore={"Description: "}
               placeholder="Enter description"
               value={fileInfo[CONTENT_KEYS.cardDescriptionKey]}
               onChange={e => updateFileInfo(CONTENT_KEYS.cardDescriptionKey, e.target.value)}
             />
             <Input
-              addonBefore={"Price (eth)"}
+              addonBefore={"Price (eth): "}
               placeholder="Enter eth price"
               value={fileInfo[CONTENT_KEYS.priceKey]}
               onChange={e => updateFileInfo(CONTENT_KEYS.priceKey, e.target.value)}

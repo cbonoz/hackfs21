@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Input } from "antd";
 
 function SearchMusic(props) {
-  const [cid, setCid] = useState();
+  const [cid, setCid] = useState("DOPRl");
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -17,8 +17,14 @@ function SearchMusic(props) {
 
   return (
     <div>
-      <h1>Enter your Audius playlist ID to generate a product page</h1>
-      <Input value={cid} onChange={e => setCid(e.target.value)} prefix={"Enter CID"} />
+      <h1>
+        Enter a known&nbsp;
+        <a href="https://audius.co/" target="_blank">
+          Audius
+        </a>
+        &nbsp;playlist ID to generate an explorer page
+      </h1>
+      <Input value={cid} onChange={e => setCid(e.target.value)} prefix={"Enter CID: "} />
       <br />
       <br />
 
