@@ -6,6 +6,10 @@
   height: 40px;
 }
 
+.preview-image {
+  height: 50px;
+}
+
 .dropzone {
   border: 1px dotted lightgray;
   padding-top: 20px;

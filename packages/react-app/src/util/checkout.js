@@ -1,5 +1,6 @@
 import faker from "faker";
 import { NETWORKS, TARGET_NETWORK } from "../constants";
+import { loadStream } from "./ceramic";
 
 export const BASE_URL = window.location.origin;
 export const DEFAULT_NAME = "Checkout Product Gate";
@@ -54,10 +55,17 @@ export const createProduct = (id, imgUrl, title, description, price, currency) =
   };
 };
 
-export const mapFilesToProducts = files => {
+export const mapFilesToProducts = async files => {
   console.log("files", files);
-  const products = files.map((x, i) => createProduct(i));
   // TODO: implement mapping to product list.
+  const products = files.map((x, i) => createProduct(i));
+
+  const infoFile = res.find(x => x.name === "info.json");
+  if (infoFile) {
+    const data = await loadStream(infoFile.streamId);
+    // Attach metadata to products.
+  }
+
   return products;
 };
 

@@ -16,7 +16,7 @@ const thumb = {
   border: "1px solid #eaeaea",
   marginBottom: 8,
   marginRight: 8,
-  width: 200,
+  width: 400,
   textAlign: "left",
   height: 200,
   overflow: "hidden",
@@ -55,6 +55,7 @@ export function FileDropzone({ files, setFiles, updateInfo, info }) {
       <div style={thumb} key={file.name}>
         <div style={thumbInner}>
           <p>
+            {/* <img src={file.preview} className="preview-image" /> */}
             <b>{file.name}</b>
             <br />
             {file.size && (

@@ -5,12 +5,21 @@ import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { APP_NAME } from "../constants";
+import { loadStream } from "../util/ceramic";
+import { getEthPrice } from "../util/fluence";
 
 function CheckoutPage({ match }) {
   const cid = match.params.cid;
   const [products, setProducts] = useState([]);
   const [name, setName] = useState();
   const [error, setError] = useState();
+  const [ethPrice, setEthPrice] = useState();
+
+  const getPrice = async () => {
+    const latestPrice = await getEthPrice();
+
+    setEthPrice(latestPrice)
+  };
 
   const getData = async () => {
     console.log("getData", cid);
@@ -22,9 +31,10 @@ function CheckoutPage({ match }) {
       setName(DEFAULT_STORE);
       return;
     }
+
     try {
       const res = await retrieveFiles(cid);
-      const newProducts = mapFilesToProducts(res)
+      const newProducts = await mapFilesToProducts(res);
       setProducts(newProducts);
     } catch (e) {
       console.error(e);
@@ -34,6 +44,7 @@ function CheckoutPage({ match }) {
 
   useEffect(() => {
     getData();
+    getPrice();
   }, [cid]);
 
   return (

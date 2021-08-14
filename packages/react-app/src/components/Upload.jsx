@@ -4,6 +4,7 @@ import { Input, Button, Steps, Layout } from "antd";
 import { FileDropzone } from "./FileDropzone";
 import { storeFiles } from "../util/stor";
 import { getCheckoutUrl } from "../util/checkout";
+import { createStream, initCeramic } from "../util/ceramic";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -35,13 +36,30 @@ function Upload({ isLoggedIn }) {
         return;
       }
 
-      // https://docs.web3.storage/how-tos/store/#preparing-files-for-upload
-      // TODO: add metadata
-      const blob = new Blob([JSON.stringify(info)], { type: "application/json" });
+      setLoading(true);
 
-      const fileObjects = [files.map(x => x), new File([blob], "info.json")];
-      const cid = await storeFiles(fileObjects);
-      const data = { cid, url: getCheckoutUrl(cid) };
+      // https://docs.web3.storage/how-tos/store/#preparing-files-for-upload
+      try {
+        await initCeramic();
+      } catch (e) {
+        console.error("error init", e); // Possibly already initialized - will error in create otherwise.
+      }
+
+      try {
+        const streamId = await createStream(info);
+        const blob = new Blob([JSON.stringify({ streamId })], { type: "application/json" });
+        const fileObjects = [files.map(x => x), new File([blob], "streamId.json")];
+        const cid = await storeFiles(fileObjects);
+      } catch (e) {
+        console.error("erorr uploading files", e);
+        alert("Error uploading files: " + e.toString());
+        return;
+      } finally {
+        setLoading(false);
+      }
+
+      const data = { cid, url: getCheckoutUrl(cid), streamId };
+      console.log("upload", data);
       setResult(data);
     }
 
