@@ -28,7 +28,7 @@ Pain points:
 ### Technologies used
 
 - IPFS and Protocol labs (Hosting and sharing of assets): IPFS and Filecoin are the primary drivers making CheckoutFS possible. Using web3.storage, a storefront or product page creator can host a distributed menu or catalog of items available for purchase with cryptocurrency.
-- Pillar (payments and wallet creation for uploaders) * Enables wallet generation and onboarding for businesses that may not have crypto accounts already. Pillar exists on the wallet page and is integrated live to validate that a customer's web3 wallet is ready to accept payments. Pillar is also leveragable for the checkout process which would need further development.
+- Pillar (payments and wallet creation for uploaders) \* Enables wallet generation and onboarding for businesses that may not have crypto accounts already. Pillar exists on the wallet page and is integrated live to validate that a customer's web3 wallet is ready to accept payments. Pillar is also leveragable for the checkout process which would need further development.
 - Unlock Protocol (purchasing): Provides cryptocurrency gateway to enable visitors/customers to purchase items from the checkout page. https://app.unlock-protocol.com/dashboard
 - Audius: Music sharing and content listings. Audius API is integrated into the product for musicians to be able to sell rights/use to their music through catalog pages. Lookup any playlist ID and get an instant page.
 - Ceramic: Used for storefront metadata storage and retrieval using streams (community node: https://developers.ceramic.network/run/nodes/community-nodes/). When a product page is accessed, a ceramic stream with the streamId of the page cid is opened and the metadata is rendered with the products from IPFS.
@@ -47,6 +47,7 @@ Define the following env variables
 Example simple checkout page already hosted on IPFS: http://localhost:3000/pages/bafybeid67zzz5auzpc2botitsrp2lh2ybutnqkw3mej4s6dlrkthhmis5q
 
 ### Aqua / Fluence
+
 WIP
 For price oracle, regenerate aqua script file with `js` flag.
 
@@ -72,11 +73,42 @@ Demo flow:
 
 -->
 
-### Future Work
+### Enhancements
 
-- Integrate payments and checkout flows directly from the catalog (enable the product to be used table side)
-- Add support for address collection for physical or remote item purchase.
-- Email integration via fluence. IPNS publishing.
+- Integrate payments and checkout flows directly from the catalog (enabling the product to be used table side). Currently this is using a fixed Unlock.js modal.
+- Add support for physical address collection for physical or remote item purchase.
+- Email integration via fluence backend.
+- IPNS publishing and fully custom domains.
+
+## Screenshots
+
+### Home
+
+<img src="./img/home.png" width="800"/>
+
+### Creating a new storefront
+
+<img src="./img/home.png" width="800"/>
+
+### Upload complete
+
+<img src="./img/complete.png" width="800"/>
+
+### Creating shortcut or scannable link
+
+<img src="./img/qr.png" width="800"/>
+
+### Basic storefront
+
+<img src="./img/store.png" width="800"/>
+
+### Music-resell storefront
+
+<img src="./img/music.png" width="800"/>
+
+### Verifying wallet
+
+<img src="./img/pillar.png" width="800"/>
 
 <!--
 ### Other links
