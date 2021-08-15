@@ -5,6 +5,8 @@ import { FileDropzone } from "./FileDropzone";
 import { storeFiles } from "../util/stor";
 import { getCheckoutUrl, getIpfsUrl } from "../util/checkout";
 import { createStream, initCeramic } from "../util/ceramic";
+import { publish } from "../util/fluence";
+import { toObject } from "./Contract/utils";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -16,7 +18,20 @@ function Upload({ isLoggedIn, address }) {
   const [files, setFiles] = useState([]);
   const [info, setInfo] = useState({ title: "My Checkout page", address: "" });
   const [result, setResult] = useState({});
+  const [publishResult, setPublishResult] = useState();
   const [loading, setLoading] = useState(false);
+
+  const ipnsPublish = async () => {
+    setLoading(true);
+    try {
+      const res = await publish(result.cid);
+      setPublishResult(res);
+    } catch (e) {
+      console.error("err", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
@@ -126,6 +141,7 @@ function Upload({ isLoggedIn, address }) {
                 </li>
               );
             })}
+            <br />
             <h3>Listing information</h3>
             {Object.keys(info).map(k => {
               return (
@@ -140,6 +156,13 @@ function Upload({ isLoggedIn, address }) {
                 Click here to view page.
               </a>
             )}
+
+            <br />
+            <p>Create a custom URL for your hosted page (demo)</p>
+            <Button onClick={ipnsPublish} disabled={loading} loading={loading}>
+              Publish to IPNS
+            </Button>
+            {publishResult && <pre className="align-left">{toObject(publishResult)}</pre>}
           </div>
         );
     }

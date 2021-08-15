@@ -27,7 +27,7 @@ Pain points:
 
 ### Technologies used
 
-- IPFS and Protocol labs (Hosting and sharing of assets): IPFS and Filecoin are the primary drivers making CheckoutFS possible. Using web3.storage, a storefront or product page creator can host a distributed menu or catalog of items available for purchase with crypto.
+- IPFS and Protocol labs (Hosting and sharing of assets): IPFS and Filecoin are the primary drivers making CheckoutFS possible. Using web3.storage, a storefront or product page creator can host a distributed menu or catalog of items available for purchase with cryptocurrency.
 - Pillar (payments and wallet creation for uploaders) * Enables wallet generation and onboarding for businesses that may not have crypto accounts already. Pillar exists on the wallet page and is integrated live to validate that a customer's web3 wallet is ready to accept payments. Pillar is also leveragable for the checkout process which would need further development.
 - Unlock Protocol (purchasing): Provides cryptocurrency gateway to enable visitors/customers to purchase items from the checkout page. https://app.unlock-protocol.com/dashboard
 - Audius: Music sharing and content listings. Audius API is integrated into the product for musicians to be able to sell rights/use to their music through catalog pages. Lookup any playlist ID and get an instant page.
@@ -47,11 +47,12 @@ Define the following env variables
 Example simple checkout page already hosted on IPFS: http://localhost:3000/pages/bafybeid67zzz5auzpc2botitsrp2lh2ybutnqkw3mej4s6dlrkthhmis5q
 
 ### Aqua / Fluence
-
+WIP
 For price oracle, regenerate aqua script file with `js` flag.
 
 <pre>
 npm i -g @fluencelabs/aqua-cli # install aqua cli
+cd `/aqua`
 aqua-cli -i aqua-scripts -o aqua-output --js
 </pre>
 
@@ -59,14 +60,15 @@ ex: https://github.com/fluencelabs/examples/tree/ae3b23c99e5a23f7da99a22bf5a6877
 
 <!--
 Demo flow:
-1. Intro
+1. Intro (compare with shopify)
 2. Assets (IPFS / filecoin)
 3. Upload (IPFS / filecoin)
 4. Generate CID with hosted content (IPFS / filecoin)
 5. QR Code for page.
 6. Preview page (fluence, ceramic)
 7. Show checkout modal (unlock).
-8. Generate wallet to receive funds (pillar)
+8. Music page
+9. Generate wallet to receive funds (pillar)
 
 -->
 

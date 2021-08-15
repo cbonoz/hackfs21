@@ -16,4 +16,12 @@ const tryToDisplay = thing => {
   return JSON.stringify(thing);
 };
 
+export function toObject(obj) {
+  return JSON.stringify(
+    obj,
+    (key, value) => (typeof value === "bigint" ? value.toString() : value), // return everything else unchanged
+    "\t",
+  );
+}
+
 export default tryToDisplay;

@@ -10,6 +10,10 @@
   color: green;
 }
 
+.align-left {
+  text-align: left;
+}
+
 .preview-image {
   height: 75px;
   margin-right: 4px;

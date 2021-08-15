@@ -10,9 +10,8 @@ import {
 } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
-import { LoadingOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { APP_NAME } from "../constants";
-import { loadStream } from "../util/ceramic";
 import { getEthPrice } from "../util/fluence";
 
 function CheckoutPage({ match }) {
@@ -21,7 +20,7 @@ function CheckoutPage({ match }) {
   const [name, setName] = useState();
   const [error, setError] = useState();
   const [ethPrice, setEthPrice] = useState();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const getPrice = async () => {
     const latestPrice = await getEthPrice();
@@ -43,7 +42,7 @@ function CheckoutPage({ match }) {
       return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       const res = await retrieveFiles(cid);
@@ -61,20 +60,20 @@ function CheckoutPage({ match }) {
       setError(e);
     }
 
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
     getData();
-  }, [ethPrice]);
+  }, [ethPrice, cid]);
 
-  useEffect(() => {
-    getPrice();
-  }, [cid]);
+  // useEffect(() => {
+  //   getPrice();
+  // }, [cid]);
 
-  if (loading) {
-    return <LoadingOutlined/>
-  }
+  // if (loading) {
+  //   return <LoadingOutlined/>
+  // }
 
   return (
     <div>

@@ -24,7 +24,7 @@ export default function CreateWallet(props) {
       }
     } catch (e) {
       console.error("error creating wallet", e);
-      alert("Error creating wallet: " + e);
+      alert("Error creating wallet: " + e.toString());
     } finally {
       setLoading(false);
     }
@@ -32,7 +32,7 @@ export default function CreateWallet(props) {
 
   return (
     <div className="container">
-      <h1>Need help validating your wallet? No problem.</h1>
+      <h1>Need help your wallet? No problem.</h1>
       {/* <h1>Don't have a wallet? No problem.</h1> */}
       {/* <p>Generate a crytocurrency wallet to accept payments for your checkout page. </p> */}
       <p>
