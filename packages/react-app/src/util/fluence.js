@@ -47,3 +47,8 @@ export const getEthPrice = async () => {
   console.log("seq result: ", network_result);
   return network_result;
 };
+
+export const publish = async (cid) => {
+    
+    // https://github.com/gkbrk/rust-ipfs-api/blob/master/src/ipns.rs
+}

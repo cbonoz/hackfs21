@@ -6,6 +6,10 @@
   height: 40px;
 }
 
+.green-text {
+  color: green;
+}
+
 .preview-image {
   height: 75px;
   margin-right: 4px;

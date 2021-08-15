@@ -54,6 +54,8 @@ npm i -g @fluencelabs/aqua-cli # install aqua cli
 aqua-cli -i aqua-scripts -o aqua-output --js
 </pre>
 
+ex: https://github.com/fluencelabs/examples/tree/ae3b23c99e5a23f7da99a22bf5a6877109ae7982/aqua-examples/ts-oracle
+
 <!--
 Demo flow:
 1. Intro

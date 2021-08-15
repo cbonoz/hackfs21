@@ -14,7 +14,7 @@ const LAST_STEP = 3;
 function Upload({ isLoggedIn, address }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [files, setFiles] = useState([]);
-  const [info, setInfo] = useState({ title: "Checkout Page" });
+  const [info, setInfo] = useState({ title: "My Checkout page", address: '' });
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -64,6 +64,11 @@ function Upload({ isLoggedIn, address }) {
       const data = { cid, url: getCheckoutUrl(cid), streamId };
       console.log("upload", data);
       setResult(data);
+    } else if (nextStep === 2) {
+      if (!info.address || !info.title) {
+        alert('Store name and payment address are required')
+        return
+      }
     }
 
     setCurrentStep(nextStep);
@@ -91,6 +96,12 @@ function Upload({ isLoggedIn, address }) {
               placeholder="Enter title of page"
               value={info.title}
               onChange={e => updateInfo({ title: e.target.value })}
+            />
+            <Input
+              addonBefore={"Address: "}
+              placeholder="Enter payment address"
+              value={info.address}
+              onChange={e => updateInfo({ address: e.target.value })}
             />
           </div>
         );
