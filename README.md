@@ -20,7 +20,7 @@ Pain points:
 
 - Discover existing catalogs and menus. Use the the IPFS cid as the primary key for storefront access.
 - Upload images and descriptions for the catalog. Metadata for the catalog is delivered via a Ceramic stream.
-- Show sharable product page hosted on IPFS.
+- Show sharable product pages hosted on IPFS.
 - Integrated pricing and checkout using Unlock protocol (other payment integrations could also be added).
 - Create a new wallet to support payments to help new businesses adopt and receive cryptocurrency payments.
 - IPFS powered storage and transaction record keeping.
@@ -32,7 +32,7 @@ Pain points:
 - Unlock Protocol (purchasing): Provides cryptocurrency gateway to enable visitors/customers to purchase items from the checkout page. https://app.unlock-protocol.com/dashboard
 - Audius: Music sharing and content listings. Audius API is integrated into the product for musicians to be able to sell rights/use to their music through catalog pages. Lookup any playlist ID and get an instant page.
 - Ceramic: Used for storefront metadata storage and retrieval using streams (community node: https://developers.ceramic.network/run/nodes/community-nodes/). When a product page is accessed, a ceramic stream with the streamId of the page cid is opened and the metadata is rendered with the products from IPFS.
-- Fluence: Price oracle interaction for rendering real time USD quotes on checkout pages based on latest Eth price (fluence enables doing this without a deployed smart contract or other oracle).
+- Fluence: Price oracle interaction for rendering real time USD quotes on checkout pages based on latest Eth price. Fluence enables doing this without a deployed smart contract or other oracle. Custom checkout pages would also be generated via an IPNS call.
 
 ### How to run
 
