@@ -16,7 +16,20 @@ function Upload({ isLoggedIn, address }) {
   const [files, setFiles] = useState([]);
   const [info, setInfo] = useState({ title: "My Checkout page", address: "" });
   const [result, setResult] = useState({});
+  const [publishResult, setPublishResult] = useState();
   const [loading, setLoading] = useState(false);
+
+  const ipnsPublish = async () => {
+    setLoading(true);
+    try {
+      const res = await publish(cid);
+      setPublishResult(res);
+    } catch (e) {
+      console.error("err", e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     console.log("isLoggedIn", isLoggedIn);
@@ -140,6 +153,12 @@ function Upload({ isLoggedIn, address }) {
                 Click here to view page.
               </a>
             )}
+
+            <p>Create a custom URL for your hosted page with IPNS (demo)</p>
+            <Button onClick={ipnsPublish} disabled={loading} loading={loading}>
+              Generate!
+            </Button>
+            {publishResult && <pre className="align-left">{toObject(publishResult)}</pre>}
           </div>
         );
     }

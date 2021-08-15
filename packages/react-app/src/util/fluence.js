@@ -4,6 +4,11 @@
 import { createClient, setLogLevel, FluenceClient } from "@fluencelabs/fluence";
 import { krasnodar, Node } from "@fluencelabs/fluence-network-environment";
 import { get_price } from "./get_price";
+import crypto from "libp2p-crypto";
+import ipns from "ipns";
+import { base58btc } from "multiformats/bases/base58";
+import uint8ArrayFromString from "uint8arrays/from-string";
+import uint8ArrayConcat from "uint8arrays/concat";
 
 interface NodeServicePair {
   node: string;
@@ -48,7 +53,48 @@ export const getEthPrice = async () => {
   return network_result;
 };
 
-export const publish = async (cid) => {
-    
-    // https://github.com/gkbrk/rust-ipfs-api/blob/master/src/ipns.rs
-}
+/** @type {{ id: string, publicKey: string }} */
+let ipfsId;
+/** @type {import('libp2p-crypto').keys.supportedKeys.rsa.RsaPrivateKey} */
+let rsa;
+
+// TODO
+export const publish = async cid => {
+  //github.com/ipfs/js-ipns/blob/d7c8e51c1505b1d75ef800d65c8896a3fe66d6d5/test/index.spec.js
+  cid = uint8ArrayFromString(cid);
+
+  rsa = await crypto.keys.generateKeyPair("RSA", 2048);
+
+  ipfsId = {
+    id: "QmQ73f8hbM4hKwRYBqeUsPtiwfE2x6WPv9WnzaYt4nYcXf",
+    publicKey:
+      "CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDUOR0AJ2/yO0S/JIkKmYV/QdHzQXi1nrTCCXtEbUDVW5mXZfNf9bKeNDfW3UIIOwVzV6/sRhJqq/8sQAhmzURj1q2onCKgSLzjdePSLtykolQeQGSD+JO7rcxOLx+sTdIyJiclP/tkK2gfo2nrI6pjFTKNzR8VSoJx7gfiqY1N9LBgDsD4WjaOM2pBgzgVUlXpk27Aqvcd+htSWi6JuIZaBhPY/IzEvXwntGH9k7F8VkT6nUBilhqFFSWnz8cNKToCHjyhoozKfqN89S7EGMiNvG4cX4Dc/nVXlZRTAi4PNNewutimujROy2/tNEquC2uAlcAzhRAcLL/ujhEjJYP1AgMBAAE=",
+  };
+
+  const sequence = 0;
+  const validity = 1000000;
+
+  const entry = await ipns.create(rsa, cid, sequence, validity);
+
+  await ipns.embedPublicKey(rsa.public, entry);
+
+  const marshalledData = ipns.marshal(entry);
+
+  const keyBytes = base58btc.decode(`z${ipfsId.id}`);
+  const key = uint8ArrayConcat([uint8ArrayFromString("/ipns/"), keyBytes]);
+
+  await ipns.validator.validate(marshalledData, key);
+  //   return key;
+  const dec = new TextDecoder("utf-8");
+  const keyValue = dec.decode(entry.value);
+  //   const signature = dec.decode(entry.signature);
+  return {
+    key: keyValue,
+    validity,
+    ttl: entry.ttl,
+    signature: entry.signature,
+    sequence: entry.sequence,
+  };
+
+  // https://github.com/gkbrk/rust-ipfs-api/blob/master/src/ipns.rs
+};

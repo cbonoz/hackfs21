@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "antd";
 import { createQRImageFromId } from "../util/qr";
 import { getCheckoutUrl } from "../util/checkout";
+import { publish } from "../util/fluence";
+import { toObject } from "./Contract/utils";
 
 function Generate(props) {
-  const [cid, setCid] = useState();
+  const [cid, setCid] = useState("bafybeid67zzz5auzpc2botitsrp2lh2ybutnqkw3mej4s6dlrkthhmis5q");
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState();
 
   const getQr = async () => {
     if (!cid) {
       alert("cid is required");
       return;
     }
+
     setLoading(true);
 
     try {

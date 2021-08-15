@@ -21,7 +21,7 @@ function CheckoutPage({ match }) {
   const [name, setName] = useState();
   const [error, setError] = useState();
   const [ethPrice, setEthPrice] = useState();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const getPrice = async () => {
     const latestPrice = await getEthPrice();
@@ -43,7 +43,7 @@ function CheckoutPage({ match }) {
       return;
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       const res = await retrieveFiles(cid);
@@ -61,20 +61,20 @@ function CheckoutPage({ match }) {
       setError(e);
     }
 
-    setLoading(false)
+    setLoading(false);
   };
 
   useEffect(() => {
     getData();
-  }, [ethPrice]);
+  }, [ethPrice, cid]);
 
-  useEffect(() => {
-    getPrice();
-  }, [cid]);
+  // useEffect(() => {
+  //   getPrice();
+  // }, [cid]);
 
-  if (loading) {
-    return <LoadingOutlined/>
-  }
+  // if (loading) {
+  //   return <LoadingOutlined/>
+  // }
 
   return (
     <div>
