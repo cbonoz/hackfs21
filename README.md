@@ -88,7 +88,7 @@ Demo flow:
 
 ### Creating a new storefront
 
-<img src="./img/home.png" width="800"/>
+<img src="./img/step1.png" width="800"/>
 
 ### Upload complete
 
