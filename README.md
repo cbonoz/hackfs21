@@ -6,24 +6,24 @@
 
 Create instant checkout pages for your business or service hosted on IPFS.
 
-Built for the HackFS 2021 hackathon.
+Prototype built for the HackFS 2021 hackathon.
 
-### Features
-
-- Discover existing catalogs and menus. Use the cid as the primary key for storefront access.
-- Upload images and descriptions for the catalog.
-- Show sharable product page hosted on IPFS.
-- Integrated pricing and checkout.
-- Create a new wallet to support payments to help new businesses adopt and receive cryptocurrency payments.
-- IPFS powered storage and transaction record keeping.
 
 ### Inspiration
 
 Pain points:
 
-- To create a hosted product catalog, usually you'd need to pay a hosted provider like squarespace or shopify.
-- Many of these existing providers don't integrate cryptocurrency
-- Providers aren't distributed and suffer downsides of existing centralized platforms (vendor lock in, variable pricing, outages, etc.)
+- To create a hosted product catalog, usually you'd need to pay a subscription fee hosted provider like squarespace or shopify.
+- Many of these existing providers don't integrate cryptocurrency.
+- Providers aren't distributed and suffer downsides of existing centralized platforms (vendor lock in, variable pricing, outages, credit card fees)
+### Features
+
+- Discover existing catalogs and menus. Use the the IPFS cid as the primary key for storefront access.
+- Upload images and descriptions for the catalog. Metadata for the catalog is delivered via a Ceramic stream.
+- Show sharable product page hosted on IPFS.
+- Integrated pricing and checkout using Unlock protocol (other payment integrations could also be added).
+- Create a new wallet to support payments to help new businesses adopt and receive cryptocurrency payments.
+- IPFS powered storage and transaction record keeping.
 
 ### Technologies used
 
@@ -48,7 +48,7 @@ Example simple checkout page already hosted on IPFS: http://localhost:3000/pages
 
 ### Aqua / Fluence
 
-WIP
+(WIP)
 For price oracle, regenerate aqua script file with `js` flag.
 
 <pre>
@@ -70,7 +70,6 @@ Demo flow:
 7. Show checkout modal (unlock).
 8. Music page
 9. Generate wallet to receive funds (pillar)
-
 -->
 
 ### Enhancements
@@ -83,7 +82,7 @@ Demo flow:
 
 ## Screenshots
 
-### Home
+### CheckoutFS
 
 <img src="./img/home.png" width="800"/>
 
