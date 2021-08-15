@@ -32,7 +32,7 @@ export default function CreateWallet(props) {
 
   return (
     <div className="container">
-      <h1>Need help connecting your wallet? No problem.</h1>
+      <h1>Need help validating your wallet? No problem.</h1>
       {/* <h1>Don't have a wallet? No problem.</h1> */}
       {/* <p>Generate a crytocurrency wallet to accept payments for your checkout page. </p> */}
       <p>
@@ -55,11 +55,11 @@ export default function CreateWallet(props) {
       <br />
       <hr />
 
-      {/* {result && <p>{JSON.stringify(result, null, "\t")}</p>} */}
+      {result && <p>{JSON.stringify(result.items, null, "\t")}</p>}
 
       {eth && (
         <div>
-          <p className='green-text'>Account ready</p>
+          <p className="green-text">Account ready</p>
           <h3>Eth balance (wei): {eth}</h3>
         </div>
       )}
