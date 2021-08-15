@@ -24,7 +24,7 @@ function About(props) {
           <br />
           <Title>CheckoutFS</Title>
           <hr />
-          <h3>Create instant checkout or point of sale experiences on IPFS.</h3>
+          <h3>Create instant checkout and point of sale experiences on IPFS.</h3>
           <br />
 
           {REASONS.map((r, i) => {
