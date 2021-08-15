@@ -16,6 +16,7 @@ Pain points:
 - To create a hosted product catalog, usually you'd need to pay a subscription fee hosted provider like squarespace or shopify.
 - Many of these existing providers don't integrate cryptocurrency.
 - Providers aren't distributed and suffer downsides of existing centralized platforms (vendor lock in, variable pricing, outages, credit card fees)
+
 ### Features
 
 - Discover existing catalogs and menus. Use the the IPFS cid as the primary key for storefront access.

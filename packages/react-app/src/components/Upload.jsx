@@ -126,6 +126,11 @@ function Upload({ isLoggedIn, address }) {
           <div>
             <h2 className="sell-header">Enter page information</h2>
             <FileDropzone info={info} files={files} setFiles={setFiles} updateInfo={updateInfo} />
+            {files.length > 0 && (
+              <p>
+                {files.length} Item{files.length > 1 ? "s" : ""}
+              </p>
+            )}
           </div>
         );
 
