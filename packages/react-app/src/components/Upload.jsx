@@ -160,7 +160,7 @@ function Upload({ isLoggedIn, address }) {
             <br />
             <p>Create a custom URL for your hosted page with IPNS (demo)</p>
             <Button onClick={ipnsPublish} disabled={loading} loading={loading}>
-              Generate!
+              Create Url
             </Button>
             {publishResult && <pre className="align-left">{toObject(publishResult)}</pre>}
           </div>
