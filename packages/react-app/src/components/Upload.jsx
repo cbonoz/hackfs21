@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Input, Button, Steps, Layout } from "antd";
 import { FileDropzone } from "./FileDropzone";
 import { storeFiles } from "../util/stor";
-import { getCheckoutUrl } from "../util/checkout";
+import { getCheckoutUrl, getIpfsUrl } from "../util/checkout";
 import { createStream, initCeramic } from "../util/ceramic";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -14,7 +14,7 @@ const LAST_STEP = 3;
 function Upload({ isLoggedIn, address }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [files, setFiles] = useState([]);
-  const [info, setInfo] = useState({ title: "My Checkout page", address: '' });
+  const [info, setInfo] = useState({ title: "My Checkout page", address: "" });
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -61,13 +61,13 @@ function Upload({ isLoggedIn, address }) {
         setLoading(false);
       }
 
-      const data = { cid, url: getCheckoutUrl(cid), streamId };
+      const data = { cid, url: getCheckoutUrl(cid), streamId, ipfs: getIpfsUrl(cid) };
       console.log("upload", data);
       setResult(data);
     } else if (nextStep === 2) {
       if (!info.address || !info.title) {
-        alert('Store name and payment address are required')
-        return
+        alert("Store name and payment address are required");
+        return;
       }
     }
 

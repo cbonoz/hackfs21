@@ -121,3 +121,5 @@ export const loadCheckoutModal = ({ title }) => {
 };
 
 export const getCheckoutUrl = cid => `${BASE_URL}/pages/${cid}`;
+
+export const getIpfsUrl = cid => `ipfs.io/ipfs/${cid}`;

@@ -1,7 +1,6 @@
-<!--
 <p align='center'>
     <img src='./img/logo_sq.png' width=600/>
-</p> -->
+</p>
 
 ## CheckoutFS
 
@@ -11,7 +10,7 @@ Built for the HackFS 2021 hackathon.
 
 ### Features
 
-- Discover existing catalogs and menus
+- Discover existing catalogs and menus. Use the cid
 - Upload images and descriptions for the catalog
 - Show sharable product page hosted on IPFS
 - Integrated pricing and checkout
@@ -28,11 +27,11 @@ Pain points:
 
 ### Technologies used
 
-- IPFS (Hosting and sharing of assets): https://web3.storage/
-- Pillar (payments and wallet creation for uploaders)
-- Unlock Protocol (purchasing): https://app.unlock-protocol.com/dashboard
-- Audius: Music sharing and content listings.
-- Ceramic: Used for storefront metadata storage and retrieval using streams (community node: https://developers.ceramic.network/run/nodes/community-nodes/).
+- IPFS and Protocol labs (Hosting and sharing of assets): IPFS and Filecoin are the primary drivers making CheckoutFS possible. Using web3.storage, a storefront or product page creator can host a distributed menu or catalog of items available for purchase with crypto.
+- Pillar (payments and wallet creation for uploaders) * Enables wallet generation and onboarding for businesses that may not have crypto accounts already. Pillar exists on the wallet page and is integrated live to validate that a customer's web3 wallet is ready to accept payments. Pillar is also leveragable for the checkout process which would need further development.
+- Unlock Protocol (purchasing): Provides cryptocurrency gateway to enable visitors/customers to purchase items from the checkout page. https://app.unlock-protocol.com/dashboard
+- Audius: Music sharing and content listings. Audius API is integrated into the product for musicians to be able to sell rights/use to their music through catalog pages. Lookup any playlist ID and get an instant page.
+- Ceramic: Used for storefront metadata storage and retrieval using streams (community node: https://developers.ceramic.network/run/nodes/community-nodes/). When a product page is accessed, a ceramic stream with the streamId of the page cid is opened and the metadata is rendered with the products from IPFS.
 - Fluence: Price oracle interaction for rendering real time USD quotes on checkout pages based on latest Eth price (fluence enables doing this without a deployed smart contract or other oracle).
 
 ### How to run
@@ -44,6 +43,8 @@ Define the following env variables
 </pre>
 
 `yarn; yarn start`
+
+Example simple checkout page already hosted on IPFS: http://localhost:3000/pages/bafybeid67zzz5auzpc2botitsrp2lh2ybutnqkw3mej4s6dlrkthhmis5q
 
 ### Aqua / Fluence
 
@@ -73,6 +74,7 @@ Demo flow:
 
 - Integrate payments and checkout flows directly from the catalog (enable the product to be used table side)
 - Add support for address collection for physical or remote item purchase.
+- Email integration via fluence. IPNS publishing.
 
 <!--
 ### Other links
