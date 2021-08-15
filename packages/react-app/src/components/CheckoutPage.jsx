@@ -10,9 +10,8 @@ import {
 } from "../util/checkout";
 import { retrieveFiles } from "../util/stor";
 import { withRouter } from "react-router";
-import { LoadingOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import { APP_NAME } from "../constants";
-import { loadStream } from "../util/ceramic";
 import { getEthPrice } from "../util/fluence";
 
 function CheckoutPage({ match }) {
