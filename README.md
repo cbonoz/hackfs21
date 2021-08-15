@@ -79,6 +79,7 @@ Demo flow:
 - Add support for physical address collection for physical or remote item purchase.
 - Email integration via fluence backend.
 - IPNS publishing and fully custom domains.
+- App prototype currently demoed on rinkeby, additional testing and implementation will be required for mainnet usage.
 
 ## Screenshots
 
