@@ -5,6 +5,8 @@ import { FileDropzone } from "./FileDropzone";
 import { storeFiles } from "../util/stor";
 import { getCheckoutUrl, getIpfsUrl } from "../util/checkout";
 import { createStream, initCeramic } from "../util/ceramic";
+import { publish } from "../util/fluence";
+import { toObject } from "./Contract/utils";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -22,7 +24,7 @@ function Upload({ isLoggedIn, address }) {
   const ipnsPublish = async () => {
     setLoading(true);
     try {
-      const res = await publish(cid);
+      const res = await publish(result.cid);
       setPublishResult(res);
     } catch (e) {
       console.error("err", e);
@@ -139,6 +141,7 @@ function Upload({ isLoggedIn, address }) {
                 </li>
               );
             })}
+            <br />
             <h3>Listing information</h3>
             {Object.keys(info).map(k => {
               return (
@@ -154,6 +157,7 @@ function Upload({ isLoggedIn, address }) {
               </a>
             )}
 
+            <br />
             <p>Create a custom URL for your hosted page with IPNS (demo)</p>
             <Button onClick={ipnsPublish} disabled={loading} loading={loading}>
               Generate!
