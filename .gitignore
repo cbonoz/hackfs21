@@ -5,6 +5,7 @@
 node_modules
 examples
 artifacts
+aqua/target/*
 /.pnp
 .pnp.js
 public/robots.txt

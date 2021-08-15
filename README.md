@@ -10,12 +10,12 @@ Built for the HackFS 2021 hackathon.
 
 ### Features
 
-- Discover existing catalogs and menus. Use the cid
-- Upload images and descriptions for the catalog
-- Show sharable product page hosted on IPFS
-- Integrated pricing and checkout
+- Discover existing catalogs and menus. Use the cid as the primary key for storefront access.
+- Upload images and descriptions for the catalog.
+- Show sharable product page hosted on IPFS.
+- Integrated pricing and checkout.
 - Create a new wallet to support payments to help new businesses adopt and receive cryptocurrency payments.
-- IPFS powered receipts and transaction record keeping
+- IPFS powered storage and transaction record keeping.
 
 ### Inspiration
 
