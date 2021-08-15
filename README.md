@@ -8,7 +8,6 @@ Create instant checkout pages for your business or service hosted on IPFS.
 
 Prototype built for the HackFS 2021 hackathon.
 
-
 ### Inspiration
 
 Pain points:
@@ -94,6 +93,10 @@ Demo flow:
 ### Upload complete
 
 <img src="./img/complete.png" width="800"/>
+
+### IPNS publish to publicize storefront uploads.
+
+<img src="./img/ipns_generation.png" width="800"/>
 
 ### Creating shortcut or scannable link
 

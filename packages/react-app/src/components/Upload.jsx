@@ -138,7 +138,7 @@ function Upload({ isLoggedIn, address }) {
         return (
           <div className="complete-section">
             <h2 className="sell-header">Complete!</h2>
-
+            <h5>Take note of the cid value below, you'll use this as storefront identifier.</h5>
             {Object.keys(result).map(k => {
               return (
                 <li>

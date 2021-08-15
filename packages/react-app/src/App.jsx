@@ -366,7 +366,7 @@ function App(props) {
     );
   }
 
-  const ROUTES = ["upload", "wallet", "embed"];
+  const ROUTES = ["upload", "embed", "wallet"];
   if (showMusic) {
     ROUTES.push("music");
   }
